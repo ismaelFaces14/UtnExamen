@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
+import { env } from '../config/env.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || "secretoUTN";
-
-export const autenticarToken = (req, res, next) => {
-    const authHeader = req.headers.authorization;
+export function autenticarToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
     if (!authHeader) return res.status(401).json({ error: "No estás autenticado" });
 
     const token = authHeader.split(" ")[1];
+
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, env.jwt.secret);
         req.user = decoded;
         next();
     } catch (err) {
@@ -16,9 +16,9 @@ export const autenticarToken = (req, res, next) => {
     }
 }
 
-export const autorizarRol = (rolesPermitidos) => {
+export function autorizarRol(rolesPermitidos) {
     return (req, res, next) => {
-        if (!req.user || !rolesPermitidos.includes(req.user.role)) {
+        if (!req.user || !rolesPermitidos.includes(req.user.rol)) {
             return res.status(403).json({ message: "Acceso denegado" });
         }
         next();

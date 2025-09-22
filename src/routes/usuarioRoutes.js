@@ -4,26 +4,9 @@ import { autenticarToken, autorizarRol } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.get(
-    "/",
-    autenticarToken,
-    autorizarRol(["superAdmin"]),
-    usuarioController.obtenerTodosUsuarios
-);
-
-router.get(
-    "/:id",
-    autenticarToken,
-    autorizarRol(["superAdmin"]),
-    usuarioController.obtenerUsuarioPorId
-);
-
-router.post(
-    "/",
-    autenticarToken,
-    autorizarRol(["superAdmin"]),
-    usuarioController.crearUsuario
-);
+router.get("/", autenticarToken, autorizarRol(["superAdmin"]), usuarioController.obtenerTodosUsuarios);
+router.get("/:id", autenticarToken, autorizarRol(["superAdmin"]), usuarioController.obtenerUsuarioPorId);
+router.post("/", autenticarToken, autorizarRol(["superAdmin"]), usuarioController.crearUsuario);
 
 router.put(
     "/:id",

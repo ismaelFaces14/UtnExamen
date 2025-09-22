@@ -27,7 +27,12 @@ export async function actualizarProducto(req, res) {
     try {
         const { id } = req.params;
         const { nombre, precio, stock } = req.body;
-        await db.query(productoQueries.update, [nombre, precio, stock, id]);
+        const [result] = await db.query(productoQueries.update, [nombre, precio, stock, id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Producto no encontrado" });
+        }
+
         res.json({ message: "Producto actualizado" });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -37,7 +42,12 @@ export async function actualizarProducto(req, res) {
 export async function eliminarProducto(req, res) {
     try {
         const { id } = req.params;
-        await db.query(productoQueries.delete, [id]);
+        const [result] = await db.query(productoQueries.delete, [id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Producto no encontrado" });
+        }
+
         res.json({ message: "Producto eliminado" });
     } catch (err) {
         res.status(500).json({ error: err.message });

@@ -17,7 +17,7 @@ app.use(express.json());
 
 (async () => {
     try {
-        console.log("⏳ Esperando a que MySQL esté listo...");
+        console.log("Esperando a que MySQL esté listo...");
 
         const open = await waitPort({
             host: env.db.host,
@@ -27,14 +27,14 @@ app.use(express.json());
         });
 
         if (!open) {
-            console.error("❌ MySQL no respondió a tiempo");
+            console.error("MySQL no respondió a tiempo");
             process.exit(1);
         }
 
-        console.log("✅ MySQL listo, conectando...");
+        console.log("MySQL listo, conectando...");
 
         await db.getConnection();
-        console.log("✅ Conexión a MySQL establecida");
+        console.log("Conexión a MySQL establecida");
 
         app.use("/auth", authRoutes);
         app.use("/usuarios", usuarioRoutes);
@@ -46,7 +46,7 @@ app.use(express.json());
         });
 
     } catch (err) {
-        console.error("❌ Error conectando a MySQL:", err);
+        console.error("Error conectando a MySQL:", err);
         process.exit(1);
     }
 })();

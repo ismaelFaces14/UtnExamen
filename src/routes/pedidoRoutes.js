@@ -4,13 +4,8 @@ import { autenticarToken, autorizarRol } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.get(
-    "/",
-    autenticarToken,
-    autorizarRol(["user", "admin", "superAdmin"]),
-    pedidoController.detallePedido
-);
-
+router.get("/:id", autenticarToken, autorizarRol(["admin", "superAdmin"]), pedidoController.detallePedido);
+router.get("/", autenticarToken, autorizarRol(["admin", "superAdmin"]), pedidoController.obtenerPedidos);
 router.post(
     "/",
     autenticarToken,
@@ -19,7 +14,7 @@ router.post(
 );
 
 router.get(
-    "/reporte/detalle",
+    "/reporte/detalle/:id",
     autenticarToken,
     autorizarRol(["superAdmin", "admin"]),
     pedidoController.totalProductos

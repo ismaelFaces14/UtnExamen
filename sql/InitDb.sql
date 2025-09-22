@@ -2,10 +2,9 @@
 CREATE DATABASE IF NOT EXISTS UTNExamen;
 USE UTNExamen; 
 
-CREATE USER IF NOT EXISTS 'utnuser'@'%' IDENTIFIED BY 'utnpass';
-GRANT ALL PRIVILEGES ON UTNExamen.* TO 'utnuser'@'%';
+CREATE USER 'utnuser'@'localhost' IDENTIFIED BY 'utnpass';
+GRANT ALL PRIVILEGES ON *.* TO 'utnuser'@'localhost';
 FLUSH PRIVILEGES;
-
 
 CREATE TABLE IF NOT EXISTS usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,

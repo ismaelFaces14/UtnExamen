@@ -8,8 +8,8 @@ export async function crearPedido(req, res) {
         if (!productos || productos.length === 0) {
             return res.status(400).json({ error: "Debe enviar productos" });
         }
-
-        const [result] = await db.query(pedidoQueries.create, [new Date(), req.user.id]);
+        const fecha = new Date().toISOString().split("T")[0];
+        const [result] = await db.query(pedidoQueries.create, [fecha, req.user.id]);
         const pedidoId = result.insertId;
 
         for (const item of productos) {
@@ -26,17 +26,6 @@ export async function obtenerPedidos(req, res) {
     try {
         const [rows] = await db.query(pedidoQueries.getAll);
         res.json(rows);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
-
-export async function obtenerPedidoPorId(req, res) {
-    try {
-        const { id } = req.params;
-        const [rows] = await db.query(pedidoQueries.getById, [id]);
-        if (rows.length === 0) return res.status(404).json({ error: "Pedido no encontrado" });
-        res.json(rows[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
