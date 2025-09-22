@@ -1,0 +1,41 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_utncrud
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: UTNExamen
+      MYSQL_USER: utnuser
+      MYSQL_PASSWORD: utnpass
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+
+  adminer:
+    image: adminer
+    container_name: adminer_utncrud
+    restart: always
+    ports:
+      - "8080:8080"
+
+  app:
+    build: .
+    container_name: node_utncrud
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_USER: utnuser
+      DB_PASS: utnpass
+      DB_NAME: UTNExamen
+      DB_PORT: 3306
+      JWT_SECRET: miClaveSuperSecreta123!
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
