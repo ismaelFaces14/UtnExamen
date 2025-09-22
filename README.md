@@ -63,6 +63,34 @@ O si quiere registrarse como usuario cree el usuario en register
     "password": "TUpassusuario"
   }
 
+si quieres realizar una carga de productos dejo algunos a continuacion:
+Desde POST/productos 
+en body uno por uno
+{
+  "nombre": "Pepsi 1L",
+  "precio": 150.00,
+  "stock": 20
+},
+{
+  "nombre": "Agua Mineral 500ml",
+  "precio": 80.00,
+  "stock": 50
+},
+{
+  "nombre": "Cerveza Rubia 330ml",
+  "precio": 200.00,
+  "stock": 30
+},
+{
+  "nombre": "Jugo de Naranja 1L",
+  "precio": 180.00,
+  "stock": 25
+},
+{
+  "nombre": "Cereal Integral 500g",
+  "precio": 250.00,
+  "stock": 40
+}
     
 
      
