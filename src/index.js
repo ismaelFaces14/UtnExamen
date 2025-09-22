@@ -1,15 +1,16 @@
-// index.js
-require("dotenv").config();
-const express = require("express");
-const waitPort = require("wait-port");
+import dotenv from 'dotenv';
+dotenv.config();
 
-const { env } = require("./config/env");
-const db = require("./config/db");
+import express from "express";
+import waitPort from "wait-port";
 
-const authRoutes = require("./routes/authRoutes");
-const usuarioRoutes = require("./routes/usuarioRoutes");
-const productoRoutes = require("./routes/productoRoutes");
-const pedidoRoutes = require("./routes/pedidoRoutes");
+import { env } from "./config/env.js";
+import db from "./config/db.js";
+
+import authRoutes from "./routes/authRoutes.js";
+import usuarioRoutes from "./routes/usuarioRoutes.js";
+import productoRoutes from "./routes/productoRoutes.js";
+import pedidoRoutes from "./routes/pedidoRoutes.js";
 
 const app = express();
 app.use(express.json());
@@ -21,7 +22,7 @@ app.use(express.json());
         const open = await waitPort({
             host: env.db.host,
             port: env.db.port,
-            timeout: 30000, // 30 segundos
+            timeout: 30000,
             output: "silent"
         });
 
@@ -32,17 +33,14 @@ app.use(express.json());
 
         console.log("✅ MySQL listo, conectando...");
 
-        // Intentar conectar a la DB
         await db.getConnection();
         console.log("✅ Conexión a MySQL establecida");
 
-        // Rutas
         app.use("/auth", authRoutes);
         app.use("/usuarios", usuarioRoutes);
         app.use("/productos", productoRoutes);
         app.use("/pedidos", pedidoRoutes);
 
-        // Levantar servidor
         app.listen(env.port, () => {
             console.log(`Servidor corriendo en http://localhost:${env.port}`);
         });

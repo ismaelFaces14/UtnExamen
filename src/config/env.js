@@ -1,10 +1,11 @@
-require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-const env = {
+export const env = {
     port: process.env.PORT || 3000,
     db: {
         host: process.env.DB_HOST || '127.0.0.1',
-        port: Number(process.env.DB_PORT || 3309),
+        port: Number(process.env.DB_PORT || 3306),
         user: process.env.DB_USER || 'utnuser',
         pass: process.env.DB_PASS || 'utnpass',
         name: process.env.DB_NAME || 'UTNExamen',
@@ -14,6 +15,5 @@ const env = {
         expiresIn: process.env.JWT_EXPIRES_IN || 'id',
     },
     bcryptRounds: Number(process.env.BCRYPT_ROUNDS || 10),
-};
 
-module.exports = { env };
+};

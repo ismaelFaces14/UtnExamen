@@ -33,7 +33,7 @@ services:
       DB_PASS: utnpass
       DB_NAME: UTNExamen
       DB_PORT: 3306
-      JWT_SECRET: miClaveSuperSecreta123!
+      JWT_SECRET: secret0C0ntrr
     depends_on:
       - mysql
 

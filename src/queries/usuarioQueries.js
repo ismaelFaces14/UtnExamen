@@ -1,4 +1,4 @@
-const usuarioQueries = {
+export const usuarioQueries = {
   getAll: `
     SELECT id, usuario, rol
     FROM usuarios
@@ -22,5 +22,3 @@ const usuarioQueries = {
     ORDER BY total_pedidos DESC
   `
 };
-
-module.exports = usuarioQueries;

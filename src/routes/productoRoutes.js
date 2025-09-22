@@ -1,11 +1,35 @@
-const express = require("express");
+import express from "express";
+import * as productoController from "../controllers/productoController.js";
+import { autenticarToken, autorizarRol } from "../middlewares/auth.js";
+
 const router = express.Router();
-const productoController = require("../controllers/productoController");
-const { autenticarToken, autorizarRol } = require("../middlewares/auth");
 
-router.get("/", autenticarToken, autorizarRol(["superAdmin", "admin"]), productoController.obtenerTodosProductos);
-router.post("/", autenticarToken, autorizarRol(["superAdmin", "admin"]), productoController.crearProducto);
-router.put("/:id", autenticarToken, autorizarRol(["superAdmin", "admin"]), productoController.actualizarProducto);
-router.delete("/:id", autenticarToken, autorizarRol(["superAdmin", "admin"]), productoController.eliminarProducto);
+router.get(
+    "/",
+    autenticarToken,
+    autorizarRol(["superAdmin", "admin"]),
+    productoController.obtenerTodosProductos
+);
 
-module.exports = router;
+router.post(
+    "/",
+    autenticarToken,
+    autorizarRol(["superAdmin", "admin"]),
+    productoController.crearProducto
+);
+
+router.put(
+    "/:id",
+    autenticarToken,
+    autorizarRol(["superAdmin", "admin"]),
+    productoController.actualizarProducto
+);
+
+router.delete(
+    "/:id",
+    autenticarToken,
+    autorizarRol(["superAdmin", "admin"]),
+    productoController.eliminarProducto
+);
+
+export default router;

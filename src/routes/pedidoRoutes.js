@@ -1,10 +1,28 @@
-const express = require("express");
+import express from "express";
+import * as pedidoController from "../controllers/pedidoController.js";
+import { autenticarToken, autorizarRol } from "../middlewares/auth.js";
+
 const router = express.Router();
-const pedidoController = require("../controllers/pedidoController");
-const { autenticarToken, autorizarRol } = require("../middlewares/auth");
 
-router.get("/", autenticarToken, autorizarRol(["user", "admin", "superAdmin"]), pedidoController.detallePedido);
-router.post("/", autenticarToken, autorizarRol(["user"]), pedidoController.crearPedido);
-router.get("/reporte/detalle", autenticarToken, autorizarRol(["superAdmin", "admin"]), pedidoController.totalProductos);
+router.get(
+    "/",
+    autenticarToken,
+    autorizarRol(["user", "admin", "superAdmin"]),
+    pedidoController.detallePedido
+);
 
-module.exports = router;
+router.post(
+    "/",
+    autenticarToken,
+    autorizarRol(["user"]),
+    pedidoController.crearPedido
+);
+
+router.get(
+    "/reporte/detalle",
+    autenticarToken,
+    autorizarRol(["superAdmin", "admin"]),
+    pedidoController.totalProductos
+);
+
+export default router;

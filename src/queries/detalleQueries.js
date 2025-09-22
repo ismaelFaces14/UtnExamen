@@ -1,4 +1,4 @@
-const detalleQueries = {
+export const detalleQueries = {
   create: "INSERT INTO detalle (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)",
 
   totalProductosEnPedido: `
@@ -16,5 +16,3 @@ const detalleQueries = {
     WHERE d.id_pedido = ?
   `
 };
-
-module.exports = detalleQueries;
